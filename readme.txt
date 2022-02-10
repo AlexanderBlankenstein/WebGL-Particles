@@ -1,4 +1,12 @@
 
+By: Alexander Blankenstein | 1094640
+
+To run program: 
+- Go to root folder.
+- type: python3 -m http.server
+- go to localhost port 8000 in web browser
+- select a file to load. 
+
 Starting code for assignment 2.
 
 -demonstrates changing mesh to create animations
