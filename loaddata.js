@@ -13,12 +13,48 @@ var repeating = true;
 var path = true;
 
 
+function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
+	this.position = (x,y,z);
+	this.offsets = (xOff,0.1,zOff);
+	this.currentAge = curAge;
+	this.maxAge = maxAge;
+}
+
+function makeParticles(num) {
+	var particles = new Array(num);
+	for (let i=0; i<num; i++) {
+		let x = Math.random() * (-2 - 2) + 2;
+		let y = -1.0;
+		let z = Math.random() * (-2 - 2) + 2;
+		let xOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
+		let zOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
+		let curAge = 0;
+		let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
+		
+		particles[i] = new Particle(x,y,z,xOff,zOff,curAge,maxAge);
+	}
+	return particles;
+}
+
+function resetParticle(Particle) {
+	let x = Math.random() * (-2 - 2) + 2;
+	let y = -1.0;
+	let z = Math.random() * (-2 - 2) + 2;
+	let xOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
+	let zOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
+	let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
+	
+	Particle.position = (x,y,z);
+	Particle.offsets = (xOff,0.1,zOff);
+	Particle.currentAge = 0;
+	Particle.maxAge = maxAge;
+}
+
+
 	// return the number of vertices in the object
 function getVertexCount() {
       return [12];
 }
-
-
 
 	// vertex positions
 function loadvertices() {
