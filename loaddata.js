@@ -115,10 +115,10 @@ function loadvertices() {
 		}
 	}
 	
-	//if (!path) {
-	//	verticesArray = new Array();
-	//}
-	verticesArray = new Array();
+	if (!path) {
+		verticesArray = new Array();
+	}
+	//verticesArray = new Array();
 	
 	/*
 	for (let i=0; i<particalList.length; i++) {

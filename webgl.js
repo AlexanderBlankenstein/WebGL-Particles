@@ -3,7 +3,8 @@
 
 var keyRotation = 0.0;
 	// amount to rotate the scene on keypress
-var rotValue = 0.0;
+//var rotValue = 0.0;
+var rotValue = Math.PI/2;
 
 main();
 
