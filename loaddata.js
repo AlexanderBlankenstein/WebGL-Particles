@@ -5,6 +5,7 @@ var drawState = 1;   // flag the controls which object drawn
 var ht = 0.1;        // initial height of object, changed by keyboard input
 var step = 0;
 var particalList = [];
+var yOff = 0.1;
 
 //let numVertices = numNormals;
 //let numIndices = numVertices/3;
@@ -18,12 +19,15 @@ var ageVariation = 0;
 var repeating = true;
 var path = true;
 
+var verticesArray = new Array();
+
 //Particle object. 
 function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
 	this.position = [x,y,z];
-	this.offsets = [xOff,0.1,zOff];
+	this.offsets = [xOff,yOff,zOff];
 	this.currentAge = curAge;
 	this.maxAge = maxAge;
+	//this.positionPath = new Array();
 }
 
 //create a list of particles based off random settings within global ranges. 
@@ -39,6 +43,7 @@ function makeParticles(num) {
 		let zOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
 		let curAge = 0;
 		let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
+		//let positionPath = new Array();
 		
 		particles[i] = new Particle(x,y,z,xOff,zOff,curAge,maxAge);
 	}
@@ -55,9 +60,10 @@ function resetParticle(Particle) {
 	let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
 	
 	Particle.position = [x,y,z];
-	Particle.offsets = [xOff,0.1,zOff];
+	Particle.offsets = [xOff,yOff,zOff];
 	Particle.currentAge = 0;
 	Particle.maxAge = maxAge;
+	//Particle.positionPath = new Array();
 }
 
 //age the particle and move it based off of its' offsets
@@ -69,20 +75,34 @@ function ageParticle(Particle) {
 	
 	//check if particle has aged or moved outside its' boundary
 	if (Particle.currentAge > Particle.maxAge || newX < -2.0 || newX > 2.0 || newY > 2.0 || newZ < -2.0 || newZ > 2.0) {
-		resetParticle(Particle);
+		if (repeating) {
+			resetParticle(Particle);
+		}
 	} else {
 		Particle.position = [newX,newY,newZ];
+		/*
+		if (path) {
+			Particle.positionPath.push(newX,newY,newZ,);
+		} else {
+			Particle.positionPath = [newX,newY,newZ];
+		}
+		*/
+		//if (!path) {
+		//	Particle.positionPath = new Array();
+		//}
+		//Particle.positionPath.push(newX,newY,newZ,);
 	}
 }
 
 	// return the number of vertices in the object
 function getVertexCount() {
-      return [numberParticles*6];
+	return [(verticesArray.length/18)*6];
 }
 
 	// vertex positions
 function loadvertices() {
-	if (step == 0) {
+	//add particles if numberParticles changes
+	if (numberParticles != particalList.length) {
 		particalList = makeParticles(numberParticles);
 	}
 
@@ -95,12 +115,35 @@ function loadvertices() {
 		}
 	}
 	
-	var toReturn = new Array();
+	//if (!path) {
+	//	verticesArray = new Array();
+	//}
+	verticesArray = new Array();
+	
+	/*
+	for (let i=0; i<particalList.length; i++) {
+		for (let j=0; j<(particalList[i].positionPath.length/3); j++) {
+			var x = particalList[i].positionPath[i*3+0];
+			var y = particalList[i].positionPath[i*3+1];
+			var z = particalList[i].positionPath[i*3+2];
+			verticesArray.push(	
+				x, (y-0.1), z,
+				x, y,  z,
+				x, (y-0.1), (z-0.1),
+		
+				x, (y-0.1), (z-0.1),
+				x, y,  z,
+				x, y, (z-0.1),
+			);
+		}
+	}
+	*/
+	
 	for (let i=0; i<particalList.length; i++) {
 		var x = particalList[i].position[0];
 		var y = particalList[i].position[1];
 		var z = particalList[i].position[2];
-		toReturn.push(	
+		verticesArray.push(	
 			x, (y-0.1), z,
 			x, y,  z,
 			x, (y-0.1), (z-0.1),
@@ -110,7 +153,8 @@ function loadvertices() {
 			x, y, (z-0.1),
 		);
 	}
-	return toReturn;
+	//console.log("VR: " + verticesArray.length);
+	return verticesArray;
 
 	// use drawState to alternate between the objects (high and low objects)
 	// you will need to add more complex state control for the assignment
@@ -160,7 +204,7 @@ function loadvertices() {
 	//   all the same 
 function loadnormals() {
 	let normalArray = [];
-	for (let i=0; i<numberParticles; i++) {
+	for (let i=0; i<(verticesArray.length/18); i++) {
 		normalArray.push(
 		0.0, 0.0,  1.0,
 		0.0, 0.0,  1.0,
@@ -169,6 +213,7 @@ function loadnormals() {
 		0.0, 0.0,  1.0,
 		0.0, 0.0,  1.0,);
 	}
+	//console.log("NO: " + normalArray.length);
 	return normalArray;
 	/*
 	if (drawState == 1) {
@@ -214,7 +259,7 @@ function loadnormals() {
 	// 0.5 to 1.0, 0.5 to 1.0   colour 4
 function loadtextcoords() {
 	let textCoordsArray = [];
-	for (let i=0; i<numberParticles; i++) {
+	for (let i=0; i<(verticesArray.length/18); i++) {
 		textCoordsArray.push(
 		0.5,  0.5,
 		1.0,  0.5,
@@ -223,6 +268,7 @@ function loadtextcoords() {
 		1.0,  0.5,
 		1.0,  1.0,);
 	}
+	//console.log("TC: " + textCoordsArray.length);
 	return textCoordsArray;
 	/*
 	if (drawState == 1) {
@@ -263,9 +309,10 @@ function loadtextcoords() {
 	// load vertex indices
 function loadvertexindices() {
 	let vertexindicesArray = [];
-	for (let i=0; i<numberParticles*6; i++) {
+	for (let i=0; i<(verticesArray.length/18)*6; i++) {
 		vertexindicesArray.push(i);
 	}
+	//console.log("VI: " + vertexindicesArray.length);
 	return vertexindicesArray;
 	/*
 	if (drawState == 1) {
