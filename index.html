@@ -27,18 +27,24 @@
         case 49: 
            rotValue += Math.PI / 6;
            break;
+		   
 		// letter a or A
+		//from example. does not do anything now. 
         case 65: 
            if (ht == 0.1) {
               ht = 0.2;
            } else {
               ht = 0.1;
            }
+		   console.log("height: " + ht);
            break;
+		   
 		// letter r		
         case 82: 
-           //?;
-           break;
+           //window.location.reload();
+           console.log("Reset System");
+		   break;
+		   
 		// letter n 
         case 78: 
            if (numberParticles == 1) {
@@ -48,7 +54,9 @@
            } else if (numberParticles == 100) {
               numberParticles = 1;
            }
+		   console.log("Number of Particles: " + numberParticles);
            break;
+		   
 		// letter d 
         case 68: 
            if (directionOffset == 0.05) {
@@ -58,7 +66,9 @@
            } else if (directionOffset == 0.2) {
               directionOffset = 0.05;
            }
+		   console.log("Direction Offset: " + directionOffset);
            break;
+		   
 		// letter a
         case 65: 
            if (maximumAge == 10) {
@@ -68,7 +78,9 @@
            } else if (maximumAge == 50) {
               maximumAge = 10;
            }
+		   console.log("Maximum Age: " + maximumAge);
            break;
+		   
 		// letter s
         case 83: 
            if (ageVariation == 0) {
@@ -78,7 +90,9 @@
            } else if (ageVariation == 10) {
               ageVariation = 0;
            }
+		   console.log("Age Variation: " + ageVariation);
            break;
+		   
 		// letter m 
         case 77: 
            if (repeating) {
@@ -86,7 +100,9 @@
            } else {
               repeating = true;
            }
+		   console.log("Repeating: " + repeating);
            break;
+		   
 		// letter p 
         case 80: 
            if (path) {
@@ -94,7 +110,9 @@
            } else {
               path = true;
            }
+		   console.log("Path: " + path);
            break;
+		   
       }  // end switch
    }
 

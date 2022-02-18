@@ -3,8 +3,12 @@
 var frameCount = 0;  // number of frames drawn
 var drawState = 1;   // flag the controls which object drawn
 var ht = 0.1;        // initial height of object, changed by keyboard input
-
 var step = 0;
+var particalList = [];
+
+//let numVertices = numNormals;
+//let numIndices = numVertices/3;
+//let numTextureCoords = numVertices*(2/3);
 
 //var reinitalizeSystem = ?;
 var numberParticles = 1;
@@ -16,8 +20,8 @@ var path = true;
 
 //Particle object. 
 function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
-	this.position = (x,y,z);
-	this.offsets = (xOff,0.1,zOff);
+	this.position = [x,y,z];
+	this.offsets = [xOff,0.1,zOff];
 	this.currentAge = curAge;
 	this.maxAge = maxAge;
 }
@@ -41,11 +45,6 @@ function makeParticles(num) {
 	return particles;
 }
 
-function ageParticle(Particle) {
-	Particle.currentAge += 1;
-	particle.position = (Particle.position[0] + Particle.offsets[0],Particle.position[1] + Particle.offsets[1],Particle.position[2] + Particle.offsets[2]);
-}
-
 //reset particle with new randomized values.
 function resetParticle(Particle) {
 	let x = Math.random() * (-2 - 2) + 2;
@@ -55,34 +54,42 @@ function resetParticle(Particle) {
 	let zOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
 	let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
 	
-	Particle.position = (x,y,z);
-	Particle.offsets = (xOff,0.1,zOff);
+	Particle.position = [x,y,z];
+	Particle.offsets = [xOff,0.1,zOff];
 	Particle.currentAge = 0;
 	Particle.maxAge = maxAge;
 }
 
+//age the particle and move it based off of its' offsets
+function ageParticle(Particle) {
+	Particle.currentAge += 1;
+	let newX = Particle.position[0] + Particle.offsets[0];
+	let newY = Particle.position[1] + Particle.offsets[1];
+	let newZ = Particle.position[2] + Particle.offsets[2];
+	
+	//check if particle has aged or moved outside its' boundary
+	if (Particle.currentAge > Particle.maxAge || newX < -2.0 || newX > 2.0 || newY > 2.0 || newZ < -2.0 || newZ > 2.0) {
+		resetParticle(Particle);
+	} else {
+		Particle.position = [newX,newY,newZ];
+	}
+}
 
 	// return the number of vertices in the object
 function getVertexCount() {
-      return [12];
+      return [numberParticles*6];
 }
 
 	// vertex positions
 function loadvertices() {
-
 	if (step == 0) {
-		var particalList = makeParticles(numberParticles);
+		particalList = makeParticles(numberParticles);
 	}
 
-	// every 25 frames causes the object being drawn to change to other
-	// object
-	// this can be removed for the assignment
+	// every 25 frames causes the object being drawn to move
 	if (frameCount % 25 == 0) {
 		//drawState *= -1;
 		step += 1;
-	}
-	
-	if (step != 1) {
 		for (let i=0; i<particalList.length; i++) {
 			ageParticle(particalList[i]);
 		}
@@ -152,6 +159,18 @@ function loadvertices() {
 	// all triangles face in the same direction so the normals are
 	//   all the same 
 function loadnormals() {
+	let normalArray = [];
+	for (let i=0; i<numberParticles; i++) {
+		normalArray.push(
+		0.0, 0.0,  1.0,
+		0.0, 0.0,  1.0,
+		0.0, 0.0,  1.0,
+		0.0, 0.0,  1.0,
+		0.0, 0.0,  1.0,
+		0.0, 0.0,  1.0,);
+	}
+	return normalArray;
+	/*
 	if (drawState == 1) {
 		return [
 			0.0, 0.0,  1.0,
@@ -183,6 +202,7 @@ function loadnormals() {
 			0.0, 0.0,  1.0,
 		];
 	}
+	*/
 }
 
 
@@ -193,6 +213,18 @@ function loadnormals() {
 	// 0.5 to 1.0, 0.0 to 0.5   colour 3
 	// 0.5 to 1.0, 0.5 to 1.0   colour 4
 function loadtextcoords() {
+	let textCoordsArray = [];
+	for (let i=0; i<numberParticles; i++) {
+		textCoordsArray.push(
+		0.5,  0.5,
+		1.0,  0.5,
+		1.0,  1.0,
+		0.5,  0.5,
+		1.0,  0.5,
+		1.0,  1.0,);
+	}
+	return textCoordsArray;
+	/*
 	if (drawState == 1) {
 		return  [
 			0.5,  0.5,
@@ -224,11 +256,18 @@ function loadtextcoords() {
 			0.5,  0.5,
 		];
 	}
+	*/
 }
 
 
 	// load vertex indices
 function loadvertexindices() {
+	let vertexindicesArray = [];
+	for (let i=0; i<numberParticles*6; i++) {
+		vertexindicesArray.push(i);
+	}
+	return vertexindicesArray;
+	/*
 	if (drawState == 1) {
 		return [
 			0,1,2,  3,4,5, 6,7,8, 9,10,11
@@ -238,6 +277,7 @@ function loadvertexindices() {
 			0,1,2,  3,4,5, 6,7,8, 9,10,11
 		];
 	}
+	*/
 }
 
 
@@ -260,4 +300,3 @@ function loadtexture() {
 		) 
 	);
 }
-
