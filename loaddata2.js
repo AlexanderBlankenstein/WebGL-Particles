@@ -6,10 +6,7 @@ var ht = 0.1;        // initial height of object, changed by keyboard input
 var step = 0;
 var particalList = [];
 var yOff = 0.1;
-
-//let numVertices = numNormals;
-//let numIndices = numVertices/3;
-//let numTextureCoords = numVertices*(2/3);
+var verticesArray = new Array();
 
 //var reinitalizeSystem = ?;
 var numberParticles = 1;
@@ -19,18 +16,15 @@ var ageVariation = 0;
 var repeating = true;
 var path = false;
 
-var verticesArray = new Array();
-
 //Particle object. 
 function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
 	this.position = [x,y,z];
 	this.offsets = [xOff,yOff,zOff];
 	this.currentAge = curAge;
 	this.maxAge = maxAge;
-	//this.positionPath = new Array();
 }
 
-
+//when r is pressed, reset everything so system starts fress. 
 function resetSystem() {
 	verticesArray = new Array();
 	particalList = [];
@@ -114,6 +108,7 @@ function loadvertices() {
 		}
 	}
 	
+	//if path is on then keep old array with all previous vertices
 	if (!path) {
 		verticesArray = new Array();
 	}
@@ -135,6 +130,8 @@ function loadvertices() {
 	//console.log("VR: " + verticesArray.length);
 	return verticesArray;
 
+	//Old code. used as reference
+	
 	// use drawState to alternate between the objects (high and low objects)
 	// you will need to add more complex state control for the assignment
 	// all of the other loading function below do the same thing
@@ -194,6 +191,9 @@ function loadnormals() {
 	}
 	//console.log("NO: " + normalArray.length);
 	return normalArray;
+	
+	//Old code. used as reference
+	
 	/*
 	if (drawState == 1) {
 		return [
@@ -249,6 +249,9 @@ function loadtextcoords() {
 	}
 	//console.log("TC: " + textCoordsArray.length);
 	return textCoordsArray;
+	
+	//Old code. used as reference
+	
 	/*
 	if (drawState == 1) {
 		return  [
@@ -293,6 +296,9 @@ function loadvertexindices() {
 	}
 	//console.log("VI: " + vertexindicesArray.length);
 	return vertexindicesArray;
+	
+	//Old code. used as reference
+	
 	/*
 	if (drawState == 1) {
 		return [
