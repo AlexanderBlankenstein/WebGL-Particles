@@ -102,6 +102,22 @@
 		   console.log("Path: " + path);
            break;
 		   
+		   // letter c
+        case 67: 
+           if (colour == "red") {
+              colour = "green";
+           } else if (colour == "green") {
+              colour = "blue";
+           } else if (colour == "blue") {
+              colour = "magenta";
+           } else if (colour == "magenta") {
+              colour = "white";
+           } else if (colour == "white") {
+              colour = "red";
+           }
+		   console.log("Colour: " + colour);
+           break;
+		   
       }  // end switch
    }
 
@@ -114,14 +130,15 @@
     <canvas id="glcanvas" width="640" height="480"></canvas>
 	<div>
 		<h2>Keyboard Events</h2>
-		<p>1 = rotate view</p>
-		<p>r = restart System</p>
-		<p>n = Num of Particles(1/10/100)</p>
-		<p>d = Direction Offset(0.05/0.1/0.2)</p>
-		<p>a = Max Age(10/20/50)</p>
-		<p>s = Age Variation(0/5/10)</p>
-		<p>m = Repeating(on/off)</p>
-		<p>p = Path(off/on)</p>
+		<p style='margin:0.1em;'>1 = rotate view</p>
+		<p style='margin:0.1em;'>r = restart System</p>
+		<p style='margin:0.1em;'>n = Num of Particles (1/10/100)</p>
+		<p style='margin:0.1em;'>d = Direction Offset (0.05/0.1/0.2)</p>
+		<p style='margin:0.1em;'>a = Max Age (10/20/50)</p>
+		<p style='margin:0.1em;'>s = Age Variation (0/5/10)</p>
+		<p style='margin:0.1em;'>m = Repeating (on/off)</p>
+		<p style='margin:0.1em;'>p = Path (off/on)</p>
+		<p style='margin:0.3em;'><b><em>NEW:</em> c = Colour (Red/Green/Blue/magenta/White)</b></p>
 	</div>
   </body>
 </html>

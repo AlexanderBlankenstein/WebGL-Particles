@@ -15,6 +15,7 @@ var maximumAge = 10;
 var ageVariation = 0;
 var repeating = true;
 var path = false;
+var colour = "red"; //added in part 2. see readme for details. 
 
 //Particle object. 
 function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
@@ -34,6 +35,7 @@ function resetSystem() {
 	ageVariation = 0;
 	repeating = true;
 	path = false;
+	colour = "red"
 }
 
 //create a list of particles based off random settings within global ranges. 
@@ -229,64 +231,69 @@ function loadnormals() {
 	*/
 }
 
-
-	// texture coordinates
-	// the current texture support four colours
-	// 0.0 to 0.5, 0.0 to 0.5   colour 1
-	// 0.0 to 0.5, 0.5 to 1.0   colour 2
-	// 0.5 to 1.0, 0.0 to 0.5   colour 3
-	// 0.5 to 1.0, 0.5 to 1.0   colour 4
-function loadtextcoords() {
-	let textCoordsArray = [];
-	for (let i=0; i<(verticesArray.length/18); i++) {
-		textCoordsArray.push(
-		0.5,  0.5,
-		1.0,  0.5,
-		1.0,  1.0,
-		0.5,  0.5,
-		1.0,  0.5,
-		1.0,  1.0,);
-	}
-	//console.log("TC: " + textCoordsArray.length);
-	return textCoordsArray;
+	//Note: you can change colour by keypress "c"
 	
-	//Old code. used as reference
+	// 1.0,  0.0,  0.0,  1.0,    // red
+	// 0.0,  1.0,  0.0,  1.0,    // green
+	// 0.0,  0.0,  1.0,  1.0,    // blue
+	// 1.0,  1.0,  1.0,  1.0,    // white
+	// colors for the verticies
+function loadcolors() {
+	let colorsArray = [];
 	
-	/*
-	if (drawState == 1) {
-		return  [
-			0.5,  0.5,
-			1.0,  0.5,
-			1.0,  1.0,
-			0.5,  0.5,
-			1.0,  0.5,
-			1.0,  1.0,
-			0.5,  0.5,
-			1.0,  0.5,
-			1.0,  1.0,
-			0.5,  0.5,
-			1.0,  0.5,
-			1.0,  1.0,
-		];
-	} else {
-		return  [
-			0.0,  0.0,
-			0.5,  0.0,
-			0.5,  0.5,
-			0.0,  0.0,
-			0.5,  0.0,
-			0.5,  0.5,
-			0.0,  0.0,
-			0.5,  0.0,
-			0.5,  0.5,
-			0.0,  0.0,
-			0.5,  0.0,
-			0.5,  0.5,
-		];
+	if (colour == "red") {
+		for (let i=0; i<(verticesArray.length/18); i++) {
+			colorsArray.push(
+				1.0,  0.0,  0.0,  1.0,
+				1.0,  0.0,  0.0,  1.0,
+				1.0,  0.0,  0.0,  1.0,
+				1.0,  0.0,  0.0,  1.0,
+				1.0,  0.0,  0.0,  1.0,
+				1.0,  0.0,  0.0,  1.0,);
+		}
+	} else if (colour == "green") {
+		for (let i=0; i<(verticesArray.length/18); i++) {
+			colorsArray.push(
+				0.0,  1.0,  0.0,  1.0,
+				0.0,  1.0,  0.0,  1.0,
+				0.0,  1.0,  0.0,  1.0,
+				0.0,  1.0,  0.0,  1.0,
+				0.0,  1.0,  0.0,  1.0,
+				0.0,  1.0,  0.0,  1.0,);
+		}
+	} else if (colour == "blue") {
+		for (let i=0; i<(verticesArray.length/18); i++) {
+			colorsArray.push(
+				0.0,  0.0,  1.0,  1.0,
+				0.0,  0.0,  1.0,  1.0,
+				0.0,  0.0,  1.0,  1.0,
+				0.0,  0.0,  1.0,  1.0,
+				0.0,  0.0,  1.0,  1.0,
+				0.0,  0.0,  1.0,  1.0,);
+		}
+	} else if (colour == "magenta") {
+		for (let i=0; i<(verticesArray.length/18); i++) {
+			colorsArray.push(
+				1.0,  0.0,  1.0,  0.0,
+				1.0,  0.0,  1.0,  0.0,
+				1.0,  0.0,  1.0,  0.0,
+				1.0,  0.0,  1.0,  0.0,
+				1.0,  0.0,  1.0,  0.0,
+				1.0,  0.0,  1.0,  0.0,);
+		}
+	} else { //colour is white then
+		for (let i=0; i<(verticesArray.length/18); i++) {
+			colorsArray.push(
+				1.0,  1.0,  1.0,  1.0,
+				1.0,  1.0,  1.0,  1.0,
+				1.0,  1.0,  1.0,  1.0,
+				1.0,  1.0,  1.0,  1.0,
+				1.0,  1.0,  1.0,  1.0,
+				1.0,  1.0,  1.0,  1.0,);
+		}
 	}
-	*/
+	return colorsArray;
 }
-
 
 	// load vertex indices
 function loadvertexindices() {
