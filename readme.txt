@@ -22,4 +22,4 @@ Sample keyboard input in index.html and index2.html
 -the s key alternates between Age Variation (0/5/10)
 -the m key alternates between Repeating Particles (Yes/No)
 -the p key alternates between showing the Path (No/Yes)
-
+-the c key alternates between particle Colour (Red/Green/Blue/magenta/White) [Only In Part 2]

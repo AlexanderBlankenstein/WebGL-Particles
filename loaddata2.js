@@ -1,3 +1,5 @@
+//Note: For Part 2, to change the colour just press "c" key on webpage.
+//   otherwise you can hard code it on the "colour" variable below. 
 
 // some variables used in the demo, these can be removed
 var frameCount = 0;  // number of frames drawn
@@ -131,49 +133,6 @@ function loadvertices() {
 	}
 	//console.log("VR: " + verticesArray.length);
 	return verticesArray;
-
-	//Old code. used as reference
-	
-	// use drawState to alternate between the objects (high and low objects)
-	// you will need to add more complex state control for the assignment
-	// all of the other loading function below do the same thing
-	//if (drawState == 1) {
-	//	return [
-	//		-2.0, -ht, -2.0,
-	//		-2.0, 0.0,  -2.0,
-	//		-2.0, -ht, -2.1,
-
-	//		-2.0, -ht, -2.1,
-	//		-2.0, 0.0,  -2.0,
-	//		-2.0, 0.0, -2.1,
-
-	//		2.0, -ht,  2.0,
-	//		2.0, 0.0,   2.0,
-	//		2.0, -ht, 2.1,
-
-	//		2.0, -ht, 2.1,
-	//		2.0, 0.0,   2.0,
-	//		2.0, 0.0,  2.1,
-	//	];
-	//} else {
-	//	return [
-	//		-2.0, 0.0, -2.0,
-	//		-2.0, ht,  -2.0,
-	//		-2.0, 0.0, -2.1,
-
-	//		-2.0, 0.0, -2.1,
-	//		-2.0, ht,  -2.0,
-	//		-2.0, ht, -2.1,
-
-	//		2.0, 0.0,  2.0,
-	//		2.0, ht,   2.0,
-	//		2.0, 0.0,  2.1,
-
-	//		2.0, 0.0,  2.1,
-	//		2.0, ht,   2.0,
-	//		2.0, ht,  2.1,
-	//	];
-	//}
 }
 
 
@@ -193,42 +152,6 @@ function loadnormals() {
 	}
 	//console.log("NO: " + normalArray.length);
 	return normalArray;
-	
-	//Old code. used as reference
-	
-	/*
-	if (drawState == 1) {
-		return [
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-		];
-	} else {
-		return [
-			0.0, 1.0,  1.0,
-			0.0, 1.0,  1.0,
-			0.0, 1.0,  1.0,
-			0.0, 1.0,  1.0,
-			0.0, 1.0,  1.0,
-			0.0, 1.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-			0.0, 0.0,  1.0,
-		];
-	}
-	*/
 }
 
 	//Note: you can change colour by keypress "c"
@@ -236,6 +159,7 @@ function loadnormals() {
 	// 1.0,  0.0,  0.0,  1.0,    // red
 	// 0.0,  1.0,  0.0,  1.0,    // green
 	// 0.0,  0.0,  1.0,  1.0,    // blue
+	// 1.0,  0.0,  1.0,  0.0,    // magenta
 	// 1.0,  1.0,  1.0,  1.0,    // white
 	// colors for the verticies
 function loadcolors() {
@@ -303,20 +227,6 @@ function loadvertexindices() {
 	}
 	//console.log("VI: " + vertexindicesArray.length);
 	return vertexindicesArray;
-	
-	//Old code. used as reference
-	
-	/*
-	if (drawState == 1) {
-		return [
-			0,1,2,  3,4,5, 6,7,8, 9,10,11
-		];
-	} else {
-		return [
-			0,1,2,  3,4,5, 6,7,8, 9,10,11
-		];
-	}
-	*/
 }
 
 
