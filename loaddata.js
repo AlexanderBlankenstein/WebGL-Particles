@@ -17,7 +17,7 @@ var directionOffset = 0.05;
 var maximumAge = 10;
 var ageVariation = 0;
 var repeating = true;
-var path = true;
+var path = false;
 
 var verticesArray = new Array();
 
@@ -28,6 +28,18 @@ function Particle(x, y, z, xOff, zOff, curAge, maxAge) {
 	this.currentAge = curAge;
 	this.maxAge = maxAge;
 	//this.positionPath = new Array();
+}
+
+
+function resetSystem() {
+	verticesArray = new Array();
+	particalList = [];
+	numberParticles = 1;
+	directionOffset = 0.05;
+	maximumAge = 10;
+	ageVariation = 0;
+	repeating = true;
+	path = false;
 }
 
 //create a list of particles based off random settings within global ranges. 
@@ -43,7 +55,6 @@ function makeParticles(num) {
 		let zOff = Math.random() * (-directionOffset - directionOffset) + directionOffset;
 		let curAge = 0;
 		let maxAge = maximumAge + (Math.floor(Math.random() * (ageVariation + 1)));
-		//let positionPath = new Array();
 		
 		particles[i] = new Particle(x,y,z,xOff,zOff,curAge,maxAge);
 	}
@@ -63,7 +74,6 @@ function resetParticle(Particle) {
 	Particle.offsets = [xOff,yOff,zOff];
 	Particle.currentAge = 0;
 	Particle.maxAge = maxAge;
-	//Particle.positionPath = new Array();
 }
 
 //age the particle and move it based off of its' offsets
@@ -80,17 +90,6 @@ function ageParticle(Particle) {
 		}
 	} else {
 		Particle.position = [newX,newY,newZ];
-		/*
-		if (path) {
-			Particle.positionPath.push(newX,newY,newZ,);
-		} else {
-			Particle.positionPath = [newX,newY,newZ];
-		}
-		*/
-		//if (!path) {
-		//	Particle.positionPath = new Array();
-		//}
-		//Particle.positionPath.push(newX,newY,newZ,);
 	}
 }
 
@@ -118,26 +117,6 @@ function loadvertices() {
 	if (!path) {
 		verticesArray = new Array();
 	}
-	//verticesArray = new Array();
-	
-	/*
-	for (let i=0; i<particalList.length; i++) {
-		for (let j=0; j<(particalList[i].positionPath.length/3); j++) {
-			var x = particalList[i].positionPath[i*3+0];
-			var y = particalList[i].positionPath[i*3+1];
-			var z = particalList[i].positionPath[i*3+2];
-			verticesArray.push(	
-				x, (y-0.1), z,
-				x, y,  z,
-				x, (y-0.1), (z-0.1),
-		
-				x, (y-0.1), (z-0.1),
-				x, y,  z,
-				x, y, (z-0.1),
-			);
-		}
-	}
-	*/
 	
 	for (let i=0; i<particalList.length; i++) {
 		var x = particalList[i].position[0];
